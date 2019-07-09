@@ -1,0 +1,32 @@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+<script type="text/javascript" charset="utf-8">
+    // Establish client-server connection
+    var socket = io('//localhost:5000');
+
+    // Once connected, server will emit 'connect' event
+    socket.on('connect', function() {
+        // In response, we can emit 'my event', passing a tuple
+        // of data to be passed to the server
+        socket.emit('my event', {data: 'I\'m connected!'});
+    });
+
+    // JQuery
+    $lights = $('#lights');
+
+    // Event handler, emit a 'change lights' event to server
+    $lights.on('click', function () {
+        socket.emit('change lights', $lights.val());
+        /**
+         *   or send as tuple
+         * socket.emit('change lights', 
+         * {
+         *  val: $lights,val(),
+         *  auth: false <--- maybe for admin?
+         * });
+         **/
+    });
+
+</script>
