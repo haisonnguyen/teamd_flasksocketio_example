@@ -1,28 +1,28 @@
-1. First need to install python modules, open up terminal and run
+1. First need to install python modules, open up terminal and run\s
 
- pip install flask socketio flask-socketio 
+ pip install flask socketio flask-socketio\s
 
  to install all the modules needed to run
 
 2. Run python app.py, this is the starting up the server
 
-3. Once you run python app.py, there should be a link, mine was
- http://127.0.0.1:5000/
+3. Once you run python app.py, there should be a link, mine was\s
+ http://127.0.0.1:5000/\s
 
- This will establish the user connection to the server. It will connect to /user namespace (essentiallity a different channel)
+ This will establish the user connection to the server. It will connect to /user namespace (essentiallity a different channel)\s
 
  The server should then tell you that a user has connected.
 
-3. Open another terminal window and run python pi.py, this will establish pi's socket connection to the server.
- It will connect to /pi namespace
+3. Open another terminal window and run python pi.py, this will establish pi's socket connection to the server.\s
+ It will connect to /pi namespace\s
 
- The server should then tell you that a pi has connected.
+ The server should then tell you that a pi has connected.\s
 
  It'll take you to a web page with a simple button named 'Blazers' for blazers theme, I just chose a random one.
 
-4. If you open up developer console you should see that when you establish a connection, an event
+4. If you open up developer console you should see that when you establish a connection, an event\s
  will be triggered to the server notifying that the user joined. 
 
-5. Click the button, this will send the value of the button to the server,
- and ultimately be forwared to the pis, then the pis will respond with a response
+5. Click the button, this will send the value of the button to the server,\s
+ and ultimately be forwared to the pis, then the pis will respond with a response\s
  to the server and ultimately the user.
