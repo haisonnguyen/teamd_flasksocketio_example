@@ -12,16 +12,15 @@
     <script type=text/javascript src="{{url_for('static', filename='jquery-3.4.1.min.js') }}"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
     <script type="text/javascript">
-    var socket = io('http://127.0.0.1:5000/');
+    var socket = io('http://127.0.0.1:5000/user');
 
     socket.on('connect', function() {
-        console.log('Sending custom event to servr');
-        socket.emit('custom', {'msg': 'Custom event sent from User'});
+        console.log('Connected to server');
     });
 
     // Simply reply the message being sent
-    socket.on('custom received', function(data) {
-        console.log(data.msg);
+    socket.on('changed lights', function(data) {
+        console.log(data.val);
     });
 
    /**

@@ -3,26 +3,33 @@ from flask_socketio import SocketIO
 
 app = Flask(__name__)
 
-
+# Socketio wrapps our flask app
 socketio = SocketIO(app)
 
 # Server/Socket events
 
-@socketio.on('connect')
-def handle_connection():
-    print('\nNew connection\n')
+# Connection for user
+@socketio.on('connect', namespace='/user')
+def connect():
+    print('a user connected')
 
-@socketio.on('custom')
-def handle_custom(data):
-    print('\nMessage from socket: ' + data['msg'] + '\n')
-    socketio.emit('custom received', {'msg': 'The event was received!'})
+# Connection for pi
+@socketio.on('connect', namespace='/pi')
+def connect():
+    print(' a pi connected')
 
-@socketio.on('change lights')
+
+@socketio.on('change lights', namespace='/user')
 def handle_change_lights(data):
-    print('Changing lights to ' + data['val'])
+    socketio.emit('change lights', data, namespace='/pi')
+    
+@socketio.on('changed lights', namespace='/pi')
+def handle_changed_lights(data):
+    socketio.emit('changed lights', {'val': 'Changed to ' + data['val']}, namespace='/user')
+
 # Routing
 @app.route('/')
-def hello():
+def index():
     return render_template('index.html')
 
 if __name__ == '__main__':
