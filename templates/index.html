@@ -8,7 +8,33 @@
 </head>
 
 <body>
-<button class="btn" id="lights">Light Preset</button>
+    <button class="btn" id="lights">Blazers</button>
+    <script type=text/javascript src="{{url_for('static', filename='jquery-3.4.1.min.js') }}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+    var socket = io('http://127.0.0.1:5000/');
+
+    socket.on('connect', function() {
+        console.log('Sending custom event to servr');
+        socket.emit('custom', {'msg': 'Custom event sent from User'});
+    });
+
+    // Simply reply the message being sent
+    socket.on('custom received', function(data) {
+        console.log(data.msg);
+    });
+
+   /**
+    * Jquery event handler that 
+    * tells socket to emit an event to the server
+    * */
+    let $lights = $('#lights');
+
+    $lights.on('click', function() {
+        console.log('Changing lights');
+        socket.emit('change lights', {val: $lights.text()});
+    });
+    </script>
 </body>
 
 </html>
