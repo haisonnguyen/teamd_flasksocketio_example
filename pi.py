@@ -5,8 +5,8 @@ socket = socketio.Client()
 
 
 # Socket event handlers
-@socket.event(namespace='/pi')
-def connect():
+@socket.on('connect', namespace='/pi')
+def handle_connect():
     print('Connection to server established')
 
 @socket.on('change lights', namespace='/pi')
@@ -17,8 +17,8 @@ def handle_change_lights(data):
     '''
     socket.emit('changed lights', data, namespace='/pi')
 
-@socket.event
-def disconnect():
+@socket.on('disconnect', namespace='/pi')   
+def handle_disconnect():
     print('disconnected from server')
 
 # Establish connection to server
